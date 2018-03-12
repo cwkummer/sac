@@ -2,14 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const low = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
-const path = require('path');
 const uuid = require('uuid/v4');
 
 // Create server
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', './views');
 app.set('view engine', 'pug');
 const router = express.Router();
 app.use("/", router);
