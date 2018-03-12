@@ -1,0 +1,14 @@
+html
+	head
+		title= 'Person List'
+		style
+			include personList.css
+	body
+		h1= 'Person List'
+	table
+		for person in people
+			tr
+				td
+					a(href='/person/'+person.id) #{person.name}
+				td= person.address
+				td= person.phone
