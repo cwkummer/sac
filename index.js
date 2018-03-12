@@ -18,33 +18,26 @@ app.listen(3000);
 (async () => {
 
 // Setup lowDB
-const adapter = new FileAsync('db.json');
+const adapter = new FileAsync('./db/db.json');
 const db = await low(adapter);
 // db.defaults({ people: [] }).write();
 
 router.route('/person/:id')
   .get((req, res) => {
-    const person = db.get('people')
-      .find({ id: req.params.id })
-		  .value();
+    const person = db.get('people').find({ id: req.params.id }).value();
 	  res.render('person', { 'person': person });
 	});
 router.route('/person')
-	.get(async (req, res) => {
-		let personList = await db.get('people').value();
+	.get((req, res) => {
+		let personList = db.get('people').value();
 	  res.render('personList', {"people": personList});
 	})
-  .post((req, res) => {
+  .post(async (req, res) => {
 		req.body.id = uuid();
-    db.get('people')
-      .push(req.body)
-      .last()
-      .write()
-      .then(post => res.send(post));
+    db.get('people').push(req.body).last().write();
+    res.redirect('/person/'+req.body.id);
 	});
 router.route('/add')
-	.get((req, res) => {
-		res.render('addPerson');
-	});
+	.get((req, res) => { res.render('addPerson'); });
 
 })();
