@@ -1,10 +1,33 @@
-body
-  form(action='/person', method='POST')
-    p
-      | Name: 
-      input(type='text', name='name', value='')
-      |          Address: 
-      input(type='text', name='address', value='')
-      |          Phone: 
-      input(type='text', name='phone', value='')
-    input(type='submit', value='Submit')
+html
+	head
+		style
+			include addPerson.css
+	body
+		include navBar.pug
+		form(action='/add', method='POST')
+			h1 Add a person
+			table
+				tr
+					td Name:
+					td
+						input.generic(type='text', name='name', value='')
+				tr
+					td Address:
+					td
+						textarea.address(name='address', value='')
+				tr
+					td Phone
+					td
+						input.generic(type='text', name='phone', value='')
+				tr
+					td Email:
+					td
+						input.generic(type='text', name='email', value='')
+				tr
+					td Notes:
+					td
+						textarea.notes(name='notes', value='')
+				tr
+					td
+					td
+						input(type='submit', value='Submit')

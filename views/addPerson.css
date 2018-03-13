@@ -1,0 +1,21 @@
+textarea.address {
+	width: 300px;
+	height: 100px;
+}
+textarea.notes {
+	width: 500px;
+	height: 200px;
+}
+td {
+	vertical-align: top;
+}
+table {
+	border-collapse: separate;
+  border-spacing : 10px;
+}
+input.generic {
+	width: 300px;
+}
+h1 {
+	padding-left: 10px;
+}

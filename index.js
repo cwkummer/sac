@@ -19,24 +19,28 @@ app.listen(3000);
 // Setup lowDB
 const adapter = new FileAsync('./db/db.json');
 const db = await low(adapter);
-// db.defaults({ people: [] }).write();
 
+router.route('/')
+	.get((req, res) => {
+		let personList = db.get('people').value();
+	  res.render('personList', {"people": personList});
+	})
 router.route('/person/:id')
   .get((req, res) => {
     const person = db.get('people').find({ id: req.params.id }).value();
 	  res.render('person', { 'person': person });
 	});
-router.route('/person')
-	.get((req, res) => {
-		let personList = db.get('people').value();
-	  res.render('personList', {"people": personList});
-	})
-  .post(async (req, res) => {
+router.route('/add')
+	.get((req, res) => { res.render('addPerson'); })
+	.post((req, res) => {
 		req.body.id = uuid();
     db.get('people').push(req.body).last().write();
     res.redirect('/person/'+req.body.id);
 	});
-router.route('/add')
-	.get((req, res) => { res.render('addPerson'); });
-
+router.route('/action')
+	.post((req, res) => {
+		const person = db.get('people').find({ id: req.body.id }).value();
+		console.log(person);
+		res.redirect('/person/'+req.body.id);
+	});
 })();

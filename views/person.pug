@@ -2,8 +2,25 @@ html
 	head
 		title= person.name
 	body
+		include navBar.pug
 		h1= person.name
-		article 
-			p Name: #{person.name} 
-			p Address: #{person.address} 
-			p Phone: #{person.phone}
+		table
+			tr
+				td Name:
+				td #{person.name}
+			tr
+				td Address:
+				td #{person.address}
+			tr
+				td Phone
+				td #{person.phone}
+			tr
+				td Email:
+				td #{person.email}
+			tr
+				td Notes:
+				td #{person.notes}
+		form(action='/action', method='POST')
+			input(type='text', name='action', value='')
+			input(type='hidden', name='id', value=person.id)
+			input(type='submit', value='Submit')
